@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="mat-title">ThermoStation</div>
+
+    <nav mat-tab-nav-bar>
+        <a mat-tab-link *ngFor="let link of links" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive" [active]="true">{{link.title}}</a>
+    </nav>
+
+    <router-outlet></router-outlet>
+</div>
