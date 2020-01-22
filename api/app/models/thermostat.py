@@ -24,6 +24,12 @@ class Thermostat:
         self.__status = GPIO.input(self.__input_pin)
         self.__on_changed.fire(self)
 
+        for key in self.__controlledPumps:
+            if self.__status:
+                self.__controlledPumps[key].turn_on()
+            else:
+                self.__controlledPumps[key].turn_off()
+
     def add_on_changed(self, on_changed):
         self.__on_changed += on_changed
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -6,12 +7,14 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-    links = [
-        { path: 'thermostats', title: 'Termostati'},
-        { path: 'pumps', title: 'Pompe' }
-    ];
+    links: any[];
 
-    constructor() { }
+    constructor() {
+        this.links = [
+            { path: '/thermostats', title: 'Termostati'},
+            { path: '/pumps', title: 'Pompe' }
+        ];
+    }
 
     ngOnInit() {
     }

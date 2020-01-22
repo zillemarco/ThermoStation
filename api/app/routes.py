@@ -1,8 +1,10 @@
 from app import app
 from .models.station import Station
+from flask_cors import cross_origin
 import json
 
 @app.route('/thermostats')
+@cross_origin()
 def thermostats():
     st = Station()
     thermostats = st.get_thermostats()
@@ -14,6 +16,7 @@ def thermostats():
     return json.dumps(result)
 
 @app.route('/pumps')
+@cross_origin()
 def pumps():
     st = Station()
     pumps = st.get_pumps()
