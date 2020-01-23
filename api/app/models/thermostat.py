@@ -1,10 +1,10 @@
-import uuid
+import uuid as UUID
 from RPi import GPIO
 from ..models.event import EventHook
 from ..models.pump import Pump
 
 class Thermostat:
-    def __init__(self, input_pin, name):
+    def __init__(self, input_pin, name, uuid = None, controlledPumps = None):
 
         if input_pin < 0 or input_pin > 40:
             raise Exception("Invalid input pin {}. Must be between 0 and 40".format(input_pin))
@@ -17,8 +17,8 @@ class Thermostat:
 
         self.__status = GPIO.input(input_pin)
         self.__on_changed = EventHook()
-        self.__uuid = uuid.uuid4()
-        self.__controlledPumps = {}
+        self.__uuid = uuid if uuid != None else UUID.uuid4()
+        self.__controlledPumps = controlledPumps if controlledPumps != None else {}
 
     def __pin_value_changed(self, channel):
         self.__status = GPIO.input(self.__input_pin)
@@ -66,5 +66,16 @@ class Thermostat:
             "id": str(self.__uuid),
             "name": self.__name,
             "isOn": self.is_on(),
+            "pin": self.__input_pin,
             "controlledPumps": controlledPumps
         }
+
+    @staticmethod
+    def from_json(data, station):
+        controlledPumps = {}
+        for cp in data["controlledPumps"]:
+            p = station.get_pump_from_id(UUID.UUID(cp["id"]))
+            if p != None:
+                controlledPumps[p.get_id()] = p
+
+        return Thermostat(data["pin"], data["name"], UUID.UUID(data["id"]), controlledPumps)

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-pumps',
@@ -13,10 +14,9 @@ export class PumpsComponent implements OnInit {
     constructor(private http: HttpClient) { }
 
     ngOnInit() {
-        this.http.get('http://192.168.1.13:5000/pumps')
+        this.http.get(`${environment.api_address}/pumps`)
             .subscribe(
                 (data: any[]) => {
-                    console.log(data);
                     this.pumps = data;
                 });
     }

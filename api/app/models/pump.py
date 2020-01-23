@@ -1,15 +1,15 @@
 from RPi import GPIO
-import uuid
+import uuid as UUID
 
 class Pump:
-    def __init__(self, pin, name):
+    def __init__(self, pin, name, uuid = None):
 
         if pin < 0 or pin > 40:
             raise Exception("Invalid input pin {}. Must be between 0 and 40".format(pin))
 
         self.__pin = pin
         self.__name = name
-        self.__uuid = uuid.uuid4()
+        self.__uuid = uuid if uuid != None else UUID.uuid4()
 
     def turn_on(self):
         GPIO.setup(self.__pin, GPIO.OUT)
@@ -33,5 +33,10 @@ class Pump:
         return {
             "id": str(self.__uuid),
             "name": self.__name,
-            "isOn": self.is_on()
+            "isOn": self.is_on(),
+            "pin": self.__pin
         }
+
+    @staticmethod
+    def from_json(data, station):
+        return Pump(data["pin"], data["name"], UUID.UUID(data["id"]))

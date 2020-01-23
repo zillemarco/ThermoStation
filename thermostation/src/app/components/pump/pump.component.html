@@ -1,6 +1,12 @@
 <div class="container">
     <mat-form-field>
-        <input matInput placeholder="Nome">
+        <input matInput placeholder="Nome" [formControl]="name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Pin</mat-label>
+        <mat-select [formControl]="pin">
+            <mat-option *ngFor="let p of pinValues" [value]="p">{{p}}</mat-option>
+        </mat-select>
     </mat-form-field>
     <button mat-raised-button color="primary">Salva</button>
 </div>

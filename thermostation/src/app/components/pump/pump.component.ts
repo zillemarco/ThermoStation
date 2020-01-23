@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-pump',
@@ -9,9 +10,17 @@ export class PumpComponent implements OnInit {
 
     @Input() pump: any;
 
-    constructor() { }
+    pinValues: number[] = [];
+    name: FormControl = null;
+    pin: FormControl = null;
+
+    constructor() {
+        this.pinValues = Array(40).fill(0).map((_, i) => i);
+    }
 
     ngOnInit() {
+        this.name = new FormControl(this.pump.name);
+        this.pin = new FormControl(this.pump.pin);
     }
 
 }
