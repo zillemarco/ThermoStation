@@ -11,17 +11,24 @@ class Pump:
         self.__name = name
         self.__uuid = uuid if uuid != None else UUID.uuid4()
 
-    def turn_on(self):
-        GPIO.setup(self.__pin, GPIO.OUT)
-        GPIO.output(self.__pin, GPIO.LOW)
-
-    def turn_off(self):
         GPIO.setup(self.__pin, GPIO.OUT)
         GPIO.output(self.__pin, GPIO.HIGH)
 
+    def turn_on(self):
+        GPIO.output(self.__pin, GPIO.LOW)
+
+    def turn_off(self):
+        GPIO.output(self.__pin, GPIO.HIGH)
+
     def is_on(self):
-        GPIO.setup(self.__pin, GPIO.IN)
         return GPIO.input(self.__pin) == GPIO.LOW
+
+    def set_pin(self, pin):
+        self.__pin = pin
+        GPIO.setup(self.__pin, GPIO.OUT)
+
+    def set_name(self, name):
+        self.__name = name
 
     def get_name(self):
         return self.__name

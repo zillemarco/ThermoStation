@@ -8,5 +8,6 @@
             <mat-option *ngFor="let p of pinValues" [value]="p">{{p}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <button mat-raised-button color="primary">Salva</button>
+    <button mat-raised-button color="primary" (click)="save()">Salva</button>
+    <button class="delete-btn" mat-raised-button color="warn" (click)="delete()">Elimina</button>
 </div>

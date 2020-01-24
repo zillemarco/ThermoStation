@@ -45,6 +45,15 @@ class Station:
                     return p
             return None
 
+        def remove_pump(self, pumpId):
+            pump = self.get_pump_from_id(pumpId)
+            if pump != None:
+                for t in self.__thermostats:
+                    t.remove_controlled_pump(pump)
+                self.__pumps.remove(pump)
+                return True
+            return False
+
         def get_pumps(self):
             return self.__pumps
 

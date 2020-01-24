@@ -21,4 +21,20 @@ export class PumpsComponent implements OnInit {
                 });
     }
 
+    pumpUpdated(pump: any) {
+        this.pumps[this.pumps.indexOf(pump)] = pump;
+    }
+
+    pumpDeleted(pump: any) {
+        this.pumps.splice(this.pumps.indexOf(pump), 1);
+    }
+
+    addPump() {
+        this.pumps.push({
+            id: null,
+            name: "Nuova pompa",
+            pin: null,
+            isOn: false
+        });
+    }
 }

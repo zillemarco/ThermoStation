@@ -1,5 +1,6 @@
 import uuid as UUID
 from RPi import GPIO
+from threading import Timer
 from ..models.event import EventHook
 from ..models.pump import Pump
 
@@ -12,7 +13,7 @@ class Thermostat:
         self.__input_pin = input_pin
         self.__name = name
 
-        GPIO.setup(input_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(input_pin, GPIO.IN)
         GPIO.add_event_detect(input_pin, GPIO.BOTH, callback=self.__pin_value_changed, bouncetime=200)
 
         self.__status = GPIO.input(input_pin)
@@ -20,7 +21,27 @@ class Thermostat:
         self.__uuid = uuid if uuid != None else UUID.uuid4()
         self.__controlledPumps = controlledPumps if controlledPumps != None else {}
 
+        # Serve a saltare la prima notifica perche' mi arriva il segnale invertito (?)
+        # Questo capita solo all'avvio quindi controllo lo stato ed eventualmente
+        # attivo le pompe ora, skippando la prima chiamata alla callback che risulterebbe
+        # errata
+        self.__ignorePinValueChange = True
+
+        if not self.__status:
+            for key in self.__controlledPumps:
+                self.__controlledPumps[key].turn_on()
+
+    def __turn_on_pumps_on_start(self):
+        for key in self.__controlledPumps:
+            self.__controlledPumps[key].turn_on()
+        self.__startTimer.cancel()
+
     def __pin_value_changed(self, channel):
+
+        if self.__ignorePinValueChange:
+            self.__ignorePinValueChange = False
+            return
+
         self.__status = GPIO.input(self.__input_pin)
         self.__on_changed.fire(self)
 
@@ -55,7 +76,8 @@ class Thermostat:
         self.__controlledPumps[pump.get_id()] = pump
 
     def remove_controlled_pump(self, pump):
-        del self.__controlledPumps[pump.get_id()]
+        if pump.get_id() in self.__controlledPumps:
+            del self.__controlledPumps[pump.get_id()]
 
     def to_json(self):
         controlledPumps = []

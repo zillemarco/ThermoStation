@@ -9,7 +9,8 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,7 +41,8 @@ import { PumpComponent } from './components/pump/pump.component';
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatSelectModule
+        MatSelectModule,
+        MatIconModule
     ],
     providers: [],
     bootstrap: [AppComponent]

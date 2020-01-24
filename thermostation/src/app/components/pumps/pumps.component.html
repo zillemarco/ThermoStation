@@ -1,11 +1,16 @@
 <div class="container">
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let pump of pumps">
+        <mat-expansion-panel *ngFor="let pump of pumps" [expanded]="pump.id == null">
             <mat-expansion-panel-header>
                 <mat-panel-title>{{pump.name}}</mat-panel-title>
+                <mat-panel-description>
+                    <mat-icon *ngIf="pump.isOn && pump.id != null">flash_on</mat-icon>
+                    <mat-icon *ngIf="!pump.isOn && pump.id != null">flash_off</mat-icon>
+                </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <app-pump [pump]="pump"></app-pump>
+            <app-pump [pump]="pump" (updated)="pumpUpdated($event)" (deleted)="pumpDeleted($event)"></app-pump>
         </mat-expansion-panel>
     </mat-accordion>
+    <button class="add-pump-btn" mat-raised-button color="primary" (click)="addPump()">Aggiungi</button>
 </div>

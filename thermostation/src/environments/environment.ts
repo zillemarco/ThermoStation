@@ -4,7 +4,8 @@
 
 export const environment = {
     production: false,
-    api_address: "http://192.168.1.5:5000"
+    api_address: "http://192.168.1.15:5000",
+    update_interval: 2000
 };
 
 /*
