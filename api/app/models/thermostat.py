@@ -2,6 +2,7 @@ import uuid as UUID
 from RPi import GPIO
 from ..models.event import EventHook
 from ..models.pump import Pump
+from ..models.db import DB
 from threading import Timer
 
 # 
@@ -33,8 +34,11 @@ class Thermostat:
 
     def __update_status(self):
 
+        db = DB()
+
         if self.__type == 1:
             newStatus = GPIO.input(self.__input_pin) == 0
+            db.write_data(str(self.get_id()), "on", 1 if newStatus == True else 0)
             if self.__status == None or newStatus != self.__status:
                 self.__status = newStatus
                 print("Pin changed status " + str(self.__status))
@@ -49,6 +53,9 @@ class Thermostat:
                 self.__currentTemperature = float(f.readline())
 
             newStatus = self.__currentTemperature < self.__targetTemperature
+
+            db.write_data(str(self.get_id()), "temperature", self.__currentTemperature)
+            db.write_data(str(self.get_id()), "on", 1 if newStatus == True else 0)
             if self.__status == None or newStatus != self.__status:
                 self.__status = newStatus
                 print("Pin changed status " + str(self.__status))

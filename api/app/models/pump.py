@@ -3,6 +3,7 @@ import uuid as UUID
 from threading import Timer
 import datetime
 import traceback
+from ..models.db import DB
 
 class Pump:
     def __init__(self, pin, name, stopHour = None, stopMinute = None, startHour = None, startMinute = None, uuid = None):
@@ -30,6 +31,9 @@ class Pump:
             GPIO.output(self.__pin, GPIO.HIGH)
         elif self.__shouldBeOn:
             self.turn_on()
+
+        db = DB()
+        db.write_data(str(self.get_id()), "on", 1 if self.is_on() else 0)
 
         Timer(10, self.__check_time_of_operation).start()
 

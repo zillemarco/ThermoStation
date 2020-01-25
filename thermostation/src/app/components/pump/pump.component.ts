@@ -19,6 +19,7 @@ export class PumpComponent implements OnInit, OnDestroy {
     pin: FormControl = null;
     startTime: FormControl = null;
     stopTime: FormControl = null;
+    statsUrl: string = "";
 
     private updateInterval: any = null;
 
@@ -35,6 +36,8 @@ export class PumpComponent implements OnInit, OnDestroy {
         this.pin = new FormControl(this.pump.pin);
         this.startTime = new FormControl(`${this.pump.startHour}:${this.pump.startMinute}`);
         this.stopTime = new FormControl(`${this.pump.stopHour}:${this.pump.stopMinute}`);
+
+        this.statsUrl = `${environment.stats_address}/d-solo/O_73EJWRk/thermostation?orgId=1&var-deviceId=${this.pump.id}&from=1579955283594&to=1579976883594&panelId=2`;
     }
 
     ngOnDestroy() {

@@ -1,21 +1,26 @@
 <div class="container">
-    <mat-form-field>
-        <input matInput placeholder="Nome" [formControl]="name">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Pin</mat-label>
-        <mat-select [formControl]="pin">
-            <mat-option *ngFor="let p of pinValues" [value]="p">{{p}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field class="time-picker-container">
-        <input matInput placeholder="Orario di stop" [ngxTimepicker]="stopTimePicker" [format]="24" [formControl]="stopTime">
-        <ngx-material-timepicker #stopTimePicker ></ngx-material-timepicker>
-    </mat-form-field>
-    <mat-form-field class="time-picker-container">
-        <input matInput placeholder="Orario di start" [ngxTimepicker]="startTimePicker" [format]="24" [formControl]="startTime">
-        <ngx-material-timepicker #startTimePicker></ngx-material-timepicker>
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="save()">Salva</button>
-    <button class="delete-btn" mat-raised-button color="warn" (click)="delete()">Elimina</button>
+    <div class="settings-container">
+        <mat-form-field>
+            <input matInput placeholder="Nome" [formControl]="name">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Pin</mat-label>
+            <mat-select [formControl]="pin">
+                <mat-option *ngFor="let p of pinValues" [value]="p">{{p}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="time-picker-container">
+            <input matInput placeholder="Orario di stop" [ngxTimepicker]="stopTimePicker" [format]="24" [formControl]="stopTime">
+            <ngx-material-timepicker #stopTimePicker ></ngx-material-timepicker>
+        </mat-form-field>
+        <mat-form-field class="time-picker-container">
+            <input matInput placeholder="Orario di start" [ngxTimepicker]="startTimePicker" [format]="24" [formControl]="startTime">
+            <ngx-material-timepicker #startTimePicker></ngx-material-timepicker>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="save()">Salva</button>
+        <button class="delete-btn" mat-raised-button color="warn" (click)="delete()">Elimina</button>
+    </div>
+    <div class="stats-container">
+        <iframe [src]="statsUrl" width="450" height="200" frameborder="0"></iframe>
+    </div>
 </div>

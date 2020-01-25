@@ -1,19 +1,30 @@
 .container {
     width: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
 
-    .mat-form-field {
-        flex: 1;
-        margin-right: 16px;
+    .settings-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .mat-form-field {
+            flex: 1;
+            margin-right: 16px;
+        }
+
+        .delete-btn {
+            margin-left: 16px;
+        }
+
+        .time-picker-container {
+            flex: none;
+            width: 100px;
+        }
     }
 
-    .delete-btn {
-        margin-left: 16px;
-    }
-
-    .time-picker-container {
-        flex: none;
-        width: 100px;
+    .stats-container {
+        margin-top: 16px;
+        width: 100%;
     }
 }
