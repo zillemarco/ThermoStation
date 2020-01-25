@@ -1,1 +1,17 @@
-<p>thermostats works!</p>
+<div class="container">
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let thermostat of thermostats" [expanded]="thermostat.id == null">
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{thermostat.name}}</mat-panel-title>
+                <mat-panel-description>
+                    <mat-icon *ngIf="thermostat.isOn && thermostat.id != null && thermostat.type == 1">flash_on</mat-icon>
+                    <mat-icon *ngIf="!thermostat.isOn && thermostat.id != null && thermostat.type == 1">flash_off</mat-icon>
+                    <span *ngIf="thermostat.id != null && thermostat.type == 2">{{thermostat.currentTemperature}} °C / {{thermostat.targetTemperature}} °C</span>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <app-thermostat [thermostat]="thermostat" (updated)="thermostatUpdated($event)" (deleted)="thermostatDeleted($event)"></app-thermostat>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <button class="add-thermostat-btn" mat-raised-button color="primary" (click)="addThermostat()">Aggiungi</button>
+</div>

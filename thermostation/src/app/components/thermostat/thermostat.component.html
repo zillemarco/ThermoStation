@@ -1,0 +1,29 @@
+<div class="container">
+    <mat-form-field class="type-container">
+        <mat-label>Tipologia</mat-label>
+        <mat-select [formControl]="type">
+            <mat-option [value]="1">Classico (a muro)</mat-option>
+            <mat-option [value]="2">Digitale</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Nome" [formControl]="name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Pin</mat-label>
+        <mat-select [formControl]="pin">
+            <mat-option *ngFor="let p of pinValues" [value]="p">{{p}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Pompe controllate</mat-label>
+        <mat-select [formControl]="controlledPumps" multiple>
+            <mat-option *ngFor="let p of pumps" [value]="p.id">{{p.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="target-temperature-container" *ngIf="type.value == 2">
+        <input matInput placeholder="Temperature desiderata" [formControl]="targetTemperature">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="save()">Salva</button>
+    <button class="delete-btn" mat-raised-button color="warn" (click)="delete()">Elimina</button>
+</div>

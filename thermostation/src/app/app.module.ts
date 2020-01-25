@@ -13,6 +13,8 @@ import {
     MatIconModule
 } from '@angular/material';
 
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +22,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ThermostatsComponent } from './components/thermostats/thermostats.component';
 import { PumpsComponent } from './components/pumps/pumps.component';
 import { PumpComponent } from './components/pump/pump.component';
+import { ThermostatComponent } from './components/thermostat/thermostat.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +30,8 @@ import { PumpComponent } from './components/pump/pump.component';
         HomeComponent,
         ThermostatsComponent,
         PumpsComponent,
-        PumpComponent
+        PumpComponent,
+        ThermostatComponent
     ],
     imports: [
         BrowserModule,
@@ -35,6 +39,7 @@ import { PumpComponent } from './components/pump/pump.component';
         HttpClientModule,
         BrowserAnimationsModule,
         FormsModule,
+        NgxMaterialTimepickerModule,
         ReactiveFormsModule,
         MatTabsModule,
         MatExpansionModule,

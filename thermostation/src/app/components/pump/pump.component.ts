@@ -17,6 +17,8 @@ export class PumpComponent implements OnInit, OnDestroy {
     pinValues: number[] = [];
     name: FormControl = null;
     pin: FormControl = null;
+    startTime: FormControl = null;
+    stopTime: FormControl = null;
 
     private updateInterval: any = null;
 
@@ -31,6 +33,8 @@ export class PumpComponent implements OnInit, OnDestroy {
 
         this.name = new FormControl(this.pump.name);
         this.pin = new FormControl(this.pump.pin);
+        this.startTime = new FormControl(`${this.pump.startHour}:${this.pump.startMinute}`);
+        this.stopTime = new FormControl(`${this.pump.stopHour}:${this.pump.stopMinute}`);
     }
 
     ngOnDestroy() {
@@ -40,39 +44,64 @@ export class PumpComponent implements OnInit, OnDestroy {
     save() {
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': 'my-auth-token'
+                'Content-Type': 'application/json'
             })
         };
 
-        if(this.pump.id != null) {
-        this.http.post<any>(`${environment.api_address}/pump/${this.pump.id}`, { name: this.name.value, pin: this.pin.value }, httpOptions)
-            .subscribe(data => {
-                if (data && data.status) {
-                    this.pump.name = this.name.value;
-                    this.pump.pin = this.pin.value;
-                    this.updated.emit(this.pump);
-                }
-            });
+        const startHour = parseInt(this.startTime.value.split(":")[0]);
+        const startMinute = parseInt(this.startTime.value.split(":")[1]);
+        const stopHour = parseInt(this.stopTime.value.split(":")[0]);
+        const stopMinute = parseInt(this.stopTime.value.split(":")[1]);
+
+        if (this.pump.id != null) {
+            this.http.post<any>(`${environment.api_address}/pump/${this.pump.id}`, {
+                name: this.name.value,
+                pin: this.pin.value,
+                startHour: startHour,
+                startMinute: startMinute,
+                stopHour: stopHour,
+                stopMinute: stopMinute
+            }, httpOptions)
+                .subscribe(data => {
+                    if (data && data.status) {
+                        this.pump.name = this.name.value;
+                        this.pump.pin = this.pin.value;
+                        this.pump.startHour = startHour;
+                        this.pump.startMinute = startMinute;
+                        this.pump.stopHour = stopHour;
+                        this.pump.stopMinute = stopMinute;
+                        this.updated.emit(this.pump);
+                    }
+                });
         }
         else {
-            this.http.post<any>(`${environment.api_address}/pumps/add`, { name: this.name.value, pin: this.pin.value }, httpOptions)
+            this.http.post<any>(`${environment.api_address}/pumps/add`, {
+                name: this.name.value,
+                pin: this.pin.value,
+                startHour: startHour,
+                startMinute: startMinute,
+                stopHour: stopHour,
+                stopMinute: stopMinute
+            }, httpOptions)
                 .subscribe(data => {
                     this.pump.id = data.id;
                     this.pump.name = data.name;
                     this.pump.pin = data.pin;
+                    this.pump.startHour = data.startHour;
+                    this.pump.startMinute = data.startMinute;
+                    this.pump.stopHour = data.stopHour;
+                    this.pump.stopMinute = data.stopMinute;
                     this.pump.isOn = data.isOn;
                     this.updated.emit(this.pump);
                 });
-        } 
+        }
     }
 
     delete() {
 
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': 'my-auth-token'
+                'Content-Type': 'application/json'
             })
         };
         this.http.delete(`${environment.api_address}/pump/${this.pump.id}`, httpOptions)

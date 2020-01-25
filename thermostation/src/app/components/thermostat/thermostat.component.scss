@@ -12,8 +12,13 @@
         margin-left: 16px;
     }
 
-    .time-picker-container {
+    .type-container {
         flex: none;
-        width: 100px;
+        width: 120px;
+    }
+
+    .target-temperature-container {
+        flex: none;
+        width: 120px;
     }
 }

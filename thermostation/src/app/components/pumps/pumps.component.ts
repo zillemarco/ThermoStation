@@ -34,6 +34,10 @@ export class PumpsComponent implements OnInit {
             id: null,
             name: "Nuova pompa",
             pin: null,
+            startHour: 12,
+            startMinute: 0,
+            stopHour: 12,
+            stopMinute: 0,
             isOn: false
         });
     }

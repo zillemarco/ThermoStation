@@ -12,9 +12,17 @@ class Station:
             self.__pumps = []
             self.__thermostats = []
 
-        def add_thermostat(self, input_pin, name):
-            self.__thermostats.append(Thermostat(input_pin, name))
-            
+        def add_thermostat(self, thermostat):
+            self.__thermostats.append(thermostat)
+
+        def remove_thermostat(self, thermostatId):
+            thermostat = self.get_thermostat_from_id(thermostatId)
+            if thermostat != None:
+                thermostat.clear_events()
+                self.__thermostats.remove(thermostat)
+                return True
+            return False
+
         def get_themostats_count(self):
             return len(self.__thermostats)
 
@@ -30,8 +38,8 @@ class Station:
         def get_thermostats(self):
             return self.__thermostats
 
-        def add_pump(self, pin, name):
-            self.__pumps.append(Pump(pin, name))
+        def add_pump(self, pump):
+            self.__pumps.append(pump)
 
         def get_pumps_count(self):
             return len(self.__pumps)
