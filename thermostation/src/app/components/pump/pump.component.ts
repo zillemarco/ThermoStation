@@ -37,7 +37,7 @@ export class PumpComponent implements OnInit, OnDestroy {
         this.startTime = new FormControl(`${this.pump.startHour}:${this.pump.startMinute}`);
         this.stopTime = new FormControl(`${this.pump.stopHour}:${this.pump.stopMinute}`);
 
-        this.statsUrl = `${environment.stats_address}/d-solo/O_73EJWRk/thermostation?orgId=1&var-deviceId=${this.pump.id}&from=1579955283594&to=1579976883594&panelId=2`;
+        this.statsUrl = `${environment.stats_address}/d-solo/nXxpC-Wgk/thermo-station?orgId=1&refresh=10s&from=1580029260847&to=1580050860847&var-deviceId=${this.pump.id}&panelId=2`;
     }
 
     ngOnDestroy() {
@@ -95,6 +95,7 @@ export class PumpComponent implements OnInit, OnDestroy {
                     this.pump.stopHour = data.stopHour;
                     this.pump.stopMinute = data.stopMinute;
                     this.pump.isOn = data.isOn;
+                    this.statsUrl = `${environment.stats_address}/d-solo/nXxpC-Wgk/thermo-station?orgId=1&refresh=10s&from=1580029260847&to=1580050860847&var-deviceId=${this.pump.id}&panelId=2`;
                     this.updated.emit(this.pump);
                 });
         }

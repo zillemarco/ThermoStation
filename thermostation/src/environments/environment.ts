@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    api_address: "http://192.168.1.16:5000",
-    stats_address: "http://192.168.1.16:3000",
+    api_address: "http://192.168.1.6:5000",
+    stats_address: "http://192.168.1.6:3000",
     update_interval: 2000
 };
 

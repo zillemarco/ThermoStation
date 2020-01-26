@@ -26,5 +26,11 @@
     .stats-container {
         margin-top: 16px;
         width: 100%;
+        display: flex;
+
+        iframe {
+            flex: 1;
+            height: 250px;
+        }
     }
 }

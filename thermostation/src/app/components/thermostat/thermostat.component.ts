@@ -22,6 +22,9 @@ export class ThermostatComponent implements OnInit, OnDestroy {
     controlledPumps: FormControl = null;
     targetTemperature: FormControl = null;
 
+    onStatusUrl: string = "";
+    temperatureStatusUrl: string = "";
+
     private updateInterval: any = null;
 
     constructor(private http: HttpClient) {
@@ -46,6 +49,9 @@ export class ThermostatComponent implements OnInit, OnDestroy {
         this.pin = new FormControl(this.thermostat.pin);
         this.targetTemperature = new FormControl(this.thermostat.targetTemperature);
         this.controlledPumps = new FormControl(this.thermostat.controlledPumps);
+
+        this.onStatusUrl = `${environment.stats_address}/d-solo/nXxpC-Wgk/thermo-station?orgId=1&refresh=10s&from=1580029260847&to=1580050860847&var-deviceId=${this.thermostat.id}&panelId=2`;
+        this.temperatureStatusUrl = `${environment.stats_address}/d-solo/nXxpC-Wgk/thermo-station?orgId=1&refresh=10s&from=1580029108038&to=1580050708038&var-deviceId=${this.thermostat.id}&panelId=4`;
     }
 
     ngOnDestroy() {
@@ -95,6 +101,8 @@ export class ThermostatComponent implements OnInit, OnDestroy {
                     this.thermostat.currentTemperature = data.currentTemperature;
                     this.thermostat.controlledPumps = data.controlledPumps;
                     this.thermostat.isOn = data.isOn;
+                    this.onStatusUrl = `${environment.stats_address}/d-solo/nXxpC-Wgk/thermo-station?orgId=1&refresh=10s&from=1580029260847&to=1580050860847&var-deviceId=${this.thermostat.id}&panelId=2`;
+                    this.temperatureStatusUrl = `${environment.stats_address}/d-solo/nXxpC-Wgk/thermo-station?orgId=1&refresh=10s&from=1580029108038&to=1580050708038&var-deviceId=${this.thermostat.id}&panelId=4`;
                     this.updated.emit(this.thermostat);
                 });
         }

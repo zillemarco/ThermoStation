@@ -23,10 +23,12 @@ import { ThermostatsComponent } from './components/thermostats/thermostats.compo
 import { PumpsComponent } from './components/pumps/pumps.component';
 import { PumpComponent } from './components/pump/pump.component';
 import { ThermostatComponent } from './components/thermostat/thermostat.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
     declarations: [
         AppComponent,
+        SafePipe,
         HomeComponent,
         ThermostatsComponent,
         PumpsComponent,

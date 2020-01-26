@@ -21,6 +21,6 @@
         <button class="delete-btn" mat-raised-button color="warn" (click)="delete()">Elimina</button>
     </div>
     <div class="stats-container">
-        <iframe [src]="statsUrl" width="450" height="200" frameborder="0"></iframe>
+        <iframe [src]="statsUrl | safe" frameborder="0"></iframe>
     </div>
 </div>
