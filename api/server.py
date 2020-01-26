@@ -5,6 +5,7 @@ from app.models.thermostat import Thermostat
 
 import time
 import RPi.GPIO as GPIO
+import bot
 
 RELAY_1 = 12
 RELAY_2 = 11

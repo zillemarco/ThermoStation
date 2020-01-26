@@ -107,11 +107,20 @@ class Thermostat:
     def get_id(self):
         return self.__uuid
 
+    def get_type(self):
+        return self.__type
+
     def set_type(self, tType):
         self.__type = tType
 
     def set_target_temperature(self, targetTemperature):
         self.__targetTemperature = targetTemperature
+
+    def get_target_temperature(self):
+        return self.__targetTemperature
+
+    def get_current_temperature(self):
+        return self.__currentTemperature
 
     def get_controlled_pumps(self):
         return self.__controlledPumps
